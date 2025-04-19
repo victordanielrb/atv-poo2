@@ -2,7 +2,7 @@ import { log } from "console"
 import Documento from "./documento"
 import Endereco from "./endereco"
 import Telefone from "./telefone"
-
+import Entrada from "../io/entrada"
 export default class Cliente {
     private nome: string
     private nomeSocial: string
@@ -12,8 +12,8 @@ export default class Cliente {
     private endereco!: Endereco
     private documentos: Documento[] = []
     private dependentes!: Cliente[]
-    private titular!: Cliente
-
+    private titular?: Cliente | undefined
+   
     constructor(nome: string, nomeSocial: string, dataNascimento: Date) {
         this.nome = nome
         this.nomeSocial = nomeSocial
@@ -29,7 +29,35 @@ export default class Cliente {
     public get Endereco() { return this.endereco }
     public get Documentos() { return this.documentos }
     public get Dependentes() { return this.dependentes }
-    public get Titular() { return this.titular }
+    public get Titular(): Cliente | undefined { 
+        if (this.titular == undefined) {
+            return undefined
+        }
+        else {
+            return this.titular
+        }
+       }
+
+    public set Nome(nome: string) {
+        this.nome = nome;
+    }
+    public set NomeSocial(nomeSocial: string) {
+        this.nomeSocial = nomeSocial;
+    }
+    public set DataNascimento(dataNascimento: Date) {
+        this.dataNascimento = dataNascimento;
+    }
+    public set Telefones(telefones: Telefone[]) {
+        this.telefones = telefones;
+    }
+    
+    public set Documentos(documentos: Documento[]) {
+        this.documentos = documentos;
+    }
+    public set Dependentes(dependentes: Cliente[]) {
+        this.dependentes = dependentes;
+    }
+    
 
     public set Endereco(endereco: Endereco) { this.endereco = endereco }
     /**
@@ -52,7 +80,8 @@ export default class Cliente {
         return this.dependentes;
         
     }
-    public set Titular(titularcli:Cliente){
+   
+    public set Titular(titularcli:Cliente|undefined) {
         this.titular = titularcli
 
     }

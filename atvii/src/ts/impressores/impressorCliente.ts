@@ -19,12 +19,17 @@ export default class ImpressaorCliente implements Impressor {
             + `| Data de nascimento: ${this.cliente.DataNascimento.toLocaleDateString()}\n`
             + `| Data de cadastro: ${this.cliente.DataCadastro.toLocaleDateString()} \n`
             + `| Dependentes:  \n`
-            {this.cliente.getDependentes()?.forEach(element => {
-                impressao +=  `_____________________ \n
-                | Nome: ${element.Nome} \n
-                | Nome social: ${element.NomeSocial} \n
-                | Data de nascimento: ${element.DataNascimento.toLocaleDateString()} \n`
-             })}
+            { if (this.cliente.Dependentes != undefined) {
+                this.cliente.Dependentes.forEach(dependente => {
+                    impressao = impressao + `| ${dependente.Nome} \n`
+                })
+                }
+            }
+            {
+                if (this.cliente.Titular != undefined) {
+                    impressao = impressao + `| Titular: ${this.cliente.Titular.Nome} \n`
+                }
+            }
             
         this.impressor = new ImpressorEndereco(this.cliente.Endereco)
         impressao = impressao + `\n${this.impressor.imprimir()}`
