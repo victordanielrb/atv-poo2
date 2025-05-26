@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@types/node": "^18.0.0",
+    "@types/prompt-sync": "^4.1.1",
+    "prompt-sync": "^4.2.0",
+    "react": "^19.1.0",
+    "react-app": "^1.1.2"
+  }
+}
