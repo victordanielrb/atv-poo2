@@ -5,23 +5,21 @@ import ListagemDependentes from './criarListagemDependentes';
 import AnexarClienteDependente from './anexarDependente';
 import ListagemTitulares from './criarListagemTitular';
 import EditarCliente from './editarCliente';
+import Instancia from '../instancia/instancia';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 export default function MenuClientes() {
     const [view, setView] = useState<string>('menu');
     const [clienteParaEditar, setClienteParaEditar] = useState<Cliente | null>(null);
-    let clientes: Cliente[] = JSON.parse(localStorage.getItem('clientes') || '[]');
-
-
-    const setClientes = (novosClientes: Cliente[]) => {
-        clientes = novosClientes;
-        localStorage.setItem('clientes', JSON.stringify(novosClientes));
-    };    const handleCadastrarTitular = (cliente: Cliente) => {
+    const [clientes, setClientes] = useState<Cliente[]>(Instancia.getDados().clientes || []);
+    const navigate = useNavigate();
+;    const handleCadastrarTitular = (cliente: Cliente) => {
         const novoTitular: Cliente = {
             ...cliente,
             titular: undefined // Confirma que é titular (não tem titular)
         };
-        setClientes([...clientes, novoTitular]);
+        Instancia.adicionarCliente( novoTitular);
         setView('menu');
     };    const handleAnexarDependente = (dependenteData: Cliente, titularNome: string) => {
         const titular = clientes.find(c => c.nome === titularNome);
@@ -46,7 +44,7 @@ export default function MenuClientes() {
                 titular : titular, // Define o titular do dependente
             };
             
-            setClientes([...clientes, novoDependente]);
+            Instancia.adicionarCliente( novoDependente);
             setView('menu');
         }    };
 
@@ -61,7 +59,7 @@ export default function MenuClientes() {
             return c; 
         });
         
-        setClientes(clientesAtualizados);
+        Instancia.setClientes(clientesAtualizados);
         setView('menu');
         setClienteParaEditar(null);
     };
@@ -77,14 +75,23 @@ export default function MenuClientes() {
     };
 
     const handleExcluirCliente = (nome: string) => {
-        setClientes(clientes.filter(c => c.nome !== nome));
+        Instancia.setClientes(clientes.filter(c => c.nome !== nome));
     };
-
+    const onVoltar = () => {
+        navigate('/'); // Redireciona para a página inicial
+        setClienteParaEditar(null);
+    };
     const titulares = clientes.filter(c => !c.titular);
     const dependentes = clientes.filter(c => c.titular);
 
     return (
         <div className="min-h-screen bg-gray-100 p-6">
+            <button
+                    onClick={onVoltar}
+                    className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md"
+                >
+                    Voltar
+                </button>
             {view === 'menu' && (
                 <div className="max-w-4xl mx-auto">
                     <div className="bg-white rounded-lg shadow-md p-6 mb-6">

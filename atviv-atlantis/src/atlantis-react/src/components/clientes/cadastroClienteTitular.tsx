@@ -1,23 +1,26 @@
 import React, { useState } from 'react';
 import { Cliente, Telefone, Endereco, Documento } from '../../interface/interfaces';
 import { ClienteUtils } from '../../utils/clienteUtils';
+import Instancia from '../instancia/instancia';
+
 
 interface CadastroClienteTitularProps {
     onCadastrar: (cliente: Cliente) => void;
     onVoltar: () => void;
 }
 
-const CadastroClienteTitular: React.FC<CadastroClienteTitularProps> = ({ onCadastrar, onVoltar }) => {
+export function CadastroClienteTitular({ onCadastrar, onVoltar }: CadastroClienteTitularProps) {
+    
+    
+    
     const [dados, setDados] = useState<Cliente>(ClienteUtils.criarClienteVazio());
-
+    
     const [telefoneAtual, setTelefoneAtual] = useState<Telefone>({ ddd: '', numero: '' });
     const [documentoAtual, setDocumentoAtual] = useState<Documento>({ 
         numero: '', 
         tipo: '', 
         dataExpedicao: new Date() 
-    });
-
-    const handleSubmit = (e: React.FormEvent) => {
+    });    const handleSubmit = (e: any) => {
         e.preventDefault();
         
         if (!dados.nome || !dados.dataNascimento) {
@@ -38,35 +41,19 @@ const CadastroClienteTitular: React.FC<CadastroClienteTitularProps> = ({ onCadas
         };
 
         onCadastrar(novoTitular);
+        alert('Cliente cadastrado com sucesso!');
         
         // Limpar formulário
-        setDados({
-            nome: '',
-            nomeSocial: '',
-            dataNascimento: '',
-            dataCadastro: new Date().toISOString().split('T')[0],
-            telefones: [],
-            endereco: {
-                rua: '',
-                bairro: '',
-                cidade: '',
-                numero:0,
-                estado: '',
-                pais: 'Brasil',
-                codigoPostal: ''
-            },
-            documentos: [],
-            dependentes: [],
-            titular: undefined
-        });
-    };    const handleChange = (field: keyof Cliente, value: string) => {
+        setDados(ClienteUtils.criarClienteVazio());
+    };const handleChange = (field: keyof Cliente, value: string) => {
         setDados(prev => ({ ...prev, [field]: value }));
-    };
-
-    const handleEnderecoChange = (field: keyof Endereco, value: string) => {
+    };    const handleEnderecoChange = (field: keyof Endereco, value: string) => {
         setDados(prev => ({
             ...prev,
-            endereco: { ...prev.endereco, [field]: value }
+            endereco: { 
+                ...prev.endereco, 
+                [field]: field === 'numero' ? Number(value) || 0 : value 
+            }
         }));
     };
 
@@ -244,6 +231,17 @@ const CadastroClienteTitular: React.FC<CadastroClienteTitularProps> = ({ onCadas
                         </div>
 
                         <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Número</label>
+                            <input
+                                type="number"
+                                value={dados.endereco.numero}
+                                onChange={e => handleEnderecoChange('numero', e.target.value)}
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="Número"
+                            />
+                        </div>
+
+                        <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Bairro</label>
                             <input
                                 type="text"
@@ -393,3 +391,4 @@ const CadastroClienteTitular: React.FC<CadastroClienteTitularProps> = ({ onCadas
 };
 
 export default CadastroClienteTitular;
+

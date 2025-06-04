@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Cliente, Telefone, Endereco, Documento } from '../../interface/interfaces';
+import Instancia from '../instancia/instancia';
+import { log } from 'console';
 
 
 const AnexarClienteDependente = ({
@@ -54,8 +56,11 @@ const AnexarClienteDependente = ({
             ...dados,
             dependentes: [] // Dependente não pode ter outros dependentes
         };
-
-        onCadastrar(novoDependente, titularSelecionado);
+        console.log("Anexando dependente:", novoDependente);console.log("Titular selecionado:", titularSelecionado);
+        
+        
+        Instancia.anexarDependente(novoDependente, Instancia.getDados().clientes.find(c => c.nome === titularSelecionado));
+        console.log("foi!");
         
         // Limpar formulário
         setDados({
@@ -424,7 +429,7 @@ const AnexarClienteDependente = ({
                     {/* Botões de ação */}
                     <div className="flex gap-4 pt-4">
                         <button
-                            type="submit"                            className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition duration-200"
+                            type="submit" className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-md transition duration-200"
                         >
                             Anexar Dependente
                         </button><button

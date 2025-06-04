@@ -33,22 +33,24 @@ const ListagemTitulares = ({ titulares, onEditar, onExcluir, onVoltar }) => {
                                         )}
                                     </h3>                                    <p className="text-gray-600">Nascimento: {titular.dataNascimento}</p>
                                     <p className="text-sm text-gray-500">Cadastro: {titular.dataCadastro}</p>
-                                    <p className="text-blue-600">Telefone: {titular.telefones.map(t => `${t.ddd} ${t.numero}`).join(', ')}</p>
+                                    <p className="text-gray-600">Telefone: {titular.telefones.map(t => `${t.ddd} ${t.numero}`).join(', ')}</p>
                                     <p className='text-sm text-gray-500'>
                                         Endereço: Rua {titular.endereco.rua}, {titular.endereco.numero}  - {titular.endereco.bairro}, {titular.endereco.cidade}/{titular.endereco.estado} - CEP: {titular.endereco.codigoPostal}
                                     </p>
                                     {titular.endereco.pais && (
                                         <p className="text-sm text-gray-500">País: {titular.endereco.pais}</p>
                                     )}
-                                    <p className="text-sm text-gray-500">
-                                        Documentos: {titular.documentos.map(doc => `${doc.tipo}: ${doc.numero}`).join(', ')}
-                                    </p>
+                                    
                                     {titular.documentos && titular.documentos.length > 0 && (
                                         <p className="text-sm text-gray-500">
                                             Documentos: {titular.documentos.map(doc => `${doc.tipo}: ${doc.numero}`).join(', ')}
                                         </p>
                                     )}
-
+                                    {titular.dependentes && titular.dependentes.length > 0 && (
+                                        <p className="text-sm text-gray-500">
+                                            Dependentes: {titular.dependentes.map(dep => dep.nome).join(', ')}
+                                        </p>
+                                    )}
                                     
                                 </div>
                                 <div className="flex gap-2">

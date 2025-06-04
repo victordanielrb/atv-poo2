@@ -1,24 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
+
 import Menu from './paginas/menu';
 import Clientes from './paginas/clientes';
 import Quartos from './paginas/quartos';
-
+import Instancia from './components/instancia/instancia';
 
 function App() {
-  if (localStorage.getItem("clientes") === null) {
-    localStorage.setItem("clientes", "[]");
-    localStorage.setItem("acomodacoes", "[]");
-    localStorage.setItem("reservas", "[]");
-    localStorage.setItem("servicos", "[]");
-  }
-  else {
-    
   
-  }
+
   return (
-    <div className="App">
+   
+      <div className="App">
       <Router>
         {/* Header/Navbar */}
         <header className="bg-blue-600 text-white p-4 shadow-lg">
@@ -37,9 +31,7 @@ function App() {
             <Route path="/servicos" element={<></>} />
         
           </Routes>
-        </main>
-
-        {/* Footer */}
+        </main>        {/* Footer */}
         <footer className="bg-gray-800 text-white p-4 mt-8">
           <div className="max-w-6xl mx-auto text-center">
             <p>&copy; 2024 Atlantis - Sistema de Gestão. Todos os direitos reservados.</p>
@@ -47,6 +39,7 @@ function App() {
         </footer>
       </Router>
     </div>
+   
   );
 }
 
