@@ -26,10 +26,11 @@ export default  class  Instancia {
     static adicionarAcomodacao(acomodacao: Acomodacao) {
         Instancia.acomodacoes.push(acomodacao);
     }
+ 
+            
 
-    static adicionarServico(servico: Servico) {
-        Instancia.servicos.push(servico);
-    }
+
+ 
     static setClientes(clientes: Cliente[]) {
         Instancia.clientes = clientes;
     }

@@ -17,7 +17,7 @@ function App() {
         {/* Header/Navbar */}
         <header className="bg-blue-600 text-white p-4 shadow-lg">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-2xl font-bold">🏨 Atlantis - Sistema de Gestão</h1>
+            <h1 className="text-2xl font-bold">🏨 Atlantisasd - Sistema de Gestão</h1>
             <p className="text-blue-200">Sistema completo para hotéis, resorts e clubes</p>
           </div>
         </header>

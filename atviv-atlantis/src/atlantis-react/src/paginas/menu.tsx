@@ -56,25 +56,9 @@ export default function Menu() {
                         </div>
                     </button>
                     
-                    <button 
-                        className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 px-8 rounded-lg shadow-lg transition duration-200 transform hover:scale-105"
-                        onClick={() => navigate("/servicos")}
-                    >
-                        🛎️ Serviços
-                        <div className="text-sm mt-1 opacity-80">
-                            {servicos.length} ativos
-                        </div>
-                    </button>
                     
-                    <button 
-                        className="bg-red-500 hover:bg-red-600 text-white font-bold py-6 px-8 rounded-lg shadow-lg transition duration-200 transform hover:scale-105"
-                        onClick={() => alert("Relatórios em desenvolvimento")}
-                    >
-                        📊 Relatórios
-                        <div className="text-sm mt-1 opacity-80">
-                            Em breve
-                        </div>
-                    </button>
+                    
+                     
                 </nav>
             </div>
         </div>
