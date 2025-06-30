@@ -1,4 +1,4 @@
-import { log } from "console";
+
 import Cliente from "../modelos/cliente";
 import Endereco from "../modelos/endereco";
 import Telefone from "../modelos/telefone";
